@@ -1,0 +1,194 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+
+    <title>Mermaid-Front</title>
+    <link href="./files/base.css" rel="stylesheet" type="text/css">
+    <link href="files/jqueryui/jquery.ui.all.css" rel="stylesheet" type="text/css">
+    <script type="text/javascript" src="./files/jquery-1.8.3.min.js"></script>
+    <script type="text/javascript" src="./files/jquery.xdomainrequest.min.js"></script>
+    <script type="text/javascript" src="./files/jquery-ui.js"></script>
+    <style type="text/css">
+        .evalueDiv {
+            height: 53px;
+        }
+
+        .lenovo {
+            width: 415px;
+            display: none;
+            background-color: #ffffff;
+            border: 1px solid #cccccc;
+            position: absolute;
+            right: 276px;
+            bottom: 58px;
+            font-size: 14px;
+            padding: 10px;
+            z-index: 3;
+        }
+
+        .lenovo a {
+            color: #5987c2;
+            font-size: 14px;
+            text-decoration: none;
+        }
+
+
+        #flow {
+            position: absolute;
+            left: 50%;
+            top: 50%;
+            margin-top: -140px;
+            margin-left: -220px;
+            width: 440px;
+            height: 280px;
+            line-height: 28px;
+            background-color: white;
+            border: 1px solid #4971bc;
+            font-family: "微软雅黑";
+            font-size: 16px;
+            color: #666;
+            display: none;
+        }
+
+        .flow_tip {
+            margin-bottom: 10px;
+            width: 440px;
+            height: 50px;
+            line-height: 50px;
+            background: #4971bc;
+            color: #fff;
+            text-align: center;
+            font-size: 18px;
+            font-weight: normal;
+        }
+
+        #flow p {
+            margin-left: 10px;
+        }
+
+        #unsatifiedCause {
+            width: 411px;
+            height: 64px;
+            margin-top: 10px;
+            margin-bottom: 3px;
+            background: #fff;
+            resize: none;
+            overflow: auto;
+            border: 1px solid #d3d3d3;
+        }
+
+        #errorMsg {
+            color: red;
+            /* display:none;  */
+            visibility: hidden;
+        }
+
+        #btn {
+            margin-top: 3px;
+        }
+
+        #btn a {
+            display: block;
+            width: 188px;
+            height: 34px;
+            line-height: 34px;
+            text-align: center;
+            border: 1px solid #acacac;
+            border-radius: 3px;
+            color: #666;
+            background: #fff;
+            font-size: 14px;
+            font-family: "微软雅黑";
+            text-decoration: none;
+        }
+
+        #btn a:hover {
+            border: 1px solid #4a72bc;
+            color: #4a72bc;
+        }
+
+        #btn .l {
+            margin-left: 2px;
+        }
+
+        #btn .r {
+            margin-right: 18px;
+        }
+
+        #cloBtn {
+            padding-right: 5px;
+            color: red;
+            float: right;
+        }
+
+        .ui-widget-content {
+            width: 440px;
+        }
+    </style>
+</head>
+
+<body>
+<div class="main" id="main">
+    <div class="header">
+        <div class="header_l"></div>
+        <div class="logo_01">
+            <img src="./files/logo2.png" alt="">
+        </div>
+        <img src="./files/demo1.gif" alt="" class="l mt10">
+        <span class="que_info l">欢迎来到Mermaid系统，专业的知识库系统，为您提供方便的服务 </span>
+
+        <input type="hidden" id="gameTypeInput" value="tl1">
+
+
+        <div class="header_r"></div>
+    </div>
+
+    <div class="main_con clearfix">
+        <div class="content">
+            <div class="left_side">
+                <div class="left_bot">
+                    <dl class="private_chat clearfix">
+                        <dt class="face_left l"><a href="javascript:void(0)"><img src="files/images/servicer.jpg"
+                                                                                  alt="亲，这个不能点哦"></a></dt>
+                        <dd class="l"><span class="pop_a"><span class="pop_b"><span class="pop_c">
+                            <span class="pop_d">欢迎使用Mermaid问答系统，下面是一些常见问题~
+                            <br>.............................................................................................
+						<ul id="top5Id">
+						</ul>
+					</span></span></span></span></dd>
+                    </dl>
+                    </div>
+                <div class="send_btn manel_send clearfix">
+                    <div class="tishi l">请您用最<strong style="color:rgb(255,0,0);">简短的语言</strong>提问，例如“微服务是什么？”，可<strong
+                            style="color:rgb(255,0,0);">直接输入</strong>：微服务
+                    </div>
+                    <input type="button" value="发送" onclick="doSearchQuestion()" class="ibs btn_send_only"><input
+                        name="question_in_box" type="text" placeholder="一句话描述一个问题哦，比如：如何学习ES？" maxlength="20"
+                        class="my_txt r" autocomplete="off" role="textbox" aria-autocomplete="list" aria-haspopup="true"
+                        style="color: rgb(210, 210, 210);"></div>
+            </div>
+            <div class="lenovo" style="display: none;"></div>
+        </div>
+        <div class="right_side l">
+            <div class="page_head right_title"><h3>常见问题：</h3></div>
+            <ul class="question_list" id="right_question_list">
+            </ul>
+        </div>
+    </div>
+
+</div>
+
+<input type="hidden" name="spirit_url_type" value="tl1">
+
+<script type="text/javascript">
+    var imgSrcServicer = "files/images/servicer.jpg";
+    var imgSrcUser = "files/images/user.jpg";
+</script>
+<script src="./files/h.js" type="text/javascript"></script>
+
+
+<script type="text/javascript" src="./files/mermaid.js"></script>
+</body>
+</html>
